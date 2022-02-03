@@ -1,17 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+//Class based component so we can eventually render the location on the screen
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    //Initializing Latitude property as null since we don't know it yet. Assigning it to this.state, so we can reference it in any function in the App component
+
+    //THIS IS THE ONLY TIME YOU DO DIRECT ASSIGNMENT TO this.state
+    this.state = { latitude: null };
+
+    //Get position for the user. Throws an error if user denies sharing location
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        //Calling setState to update the latitude property inside the state object
+        this.setState({ latitude: position.coords.latitude });
+      },
+      (err) => {
+        this.setState({ errorMessage: err.message });
+      }
+    );
+  }
+
+  render() {
+    //Conditional rendering based on the user's geolocation sharing choice.
+    if (this.state.errorMessage && !this.state.latitude) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.latitude) {
+      return <div>Latitude: {this.state.latitude}</div>;
+    }
+
+    return <div>Loading!</div>;
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
