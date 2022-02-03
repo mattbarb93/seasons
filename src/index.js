@@ -3,14 +3,8 @@ import ReactDOM from "react-dom";
 
 //Class based component so we can eventually render the location on the screen
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    //Initializing Latitude property as null since we don't know it yet. Assigning it to this.state, so we can reference it in any function in the App component
-
-    //THIS IS THE ONLY TIME YOU DO DIRECT ASSIGNMENT TO this.state
-    this.state = { latitude: null, errorMessage: "" };
-  }
+  //State initialization
+  state = { latitude: null, errorMessage: "" };
 
   //Good practice is to do API calls on componentDidMount
   componentDidMount() {
