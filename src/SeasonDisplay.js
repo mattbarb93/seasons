@@ -1,4 +1,5 @@
 import "./SeasonDisplay.css";
+
 import React from "react";
 
 //Display a specific message/icon depending on the season.

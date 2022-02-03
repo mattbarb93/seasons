@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
+import Loader from "./Loader";
 
 //Class based component so we can eventually render the location on the screen
 class App extends React.Component {
@@ -28,7 +29,7 @@ class App extends React.Component {
       return <SeasonDisplay latitude={this.state.latitude} />;
     }
 
-    return <div>Loading!</div>;
+    return <Loader message="Please accept location request" />;
   }
 }
 
