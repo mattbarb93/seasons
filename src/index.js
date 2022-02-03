@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import SeasonDisplay from "./SeasonDisplay";
 
 //Class based component so we can eventually render the location on the screen
 class App extends React.Component {
@@ -22,8 +23,9 @@ class App extends React.Component {
       return <div>Error: {this.state.errorMessage}</div>;
     }
 
+    //Using props system from one component and pass it as a prop to the child component (SeasonDisplay)
     if (!this.state.errorMessage && this.state.latitude) {
-      return <div>Latitude: {this.state.latitude}</div>;
+      return <SeasonDisplay latitude={this.state.latitude} />;
     }
 
     return <div>Loading!</div>;
