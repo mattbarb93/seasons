@@ -9,17 +9,16 @@ class App extends React.Component {
     //Initializing Latitude property as null since we don't know it yet. Assigning it to this.state, so we can reference it in any function in the App component
 
     //THIS IS THE ONLY TIME YOU DO DIRECT ASSIGNMENT TO this.state
-    this.state = { latitude: null };
+    this.state = { latitude: null, errorMessage: "" };
+  }
 
+  //Good practice is to do API calls on componentDidMount
+  componentDidMount() {
     //Get position for the user. Throws an error if user denies sharing location
     window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        //Calling setState to update the latitude property inside the state object
-        this.setState({ latitude: position.coords.latitude });
-      },
-      (err) => {
-        this.setState({ errorMessage: err.message });
-      }
+      //Calling setState to update the latitude property inside the state object
+      (position) => this.setState({ latitude: position.coords.latitude }),
+      (err) => this.setState({ errorMessage: err.message })
     );
   }
 
